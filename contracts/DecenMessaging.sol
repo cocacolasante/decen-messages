@@ -39,9 +39,10 @@ contract DecenMessaging{
     }
 
 
-    function sendMessage(address to, string memory message)external{
+    function sendMessage(address to, string memory message) external {
         require(bytes(message).length <= 100, "Message too long");
         messageCount++;
+
         Message memory newMessage = Message(
             messageCount,
             msg.sender,
@@ -51,8 +52,13 @@ contract DecenMessaging{
         );
         allMessages.push(newMessage);
 
-        messagesToUser[msg.sender].push(newMessage);
+        messagesToUser[to].push(newMessage);
+        messagesFromUser[msg.sender].push(newMessage);
 
         emit MessageSent(messageCount, msg.sender, to, block.timestamp);
+    }
+
+    function viewMessageByUser(address user) external view returns(Message[] memory){
+        
     }
 }
