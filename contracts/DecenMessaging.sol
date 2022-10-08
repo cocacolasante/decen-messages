@@ -12,10 +12,8 @@ contract DecenMessaging{
     uint public messageCount;
 
     // mapping of users to messages
-    mapping(address=>Message[]) public ToUser;
-    mapping(address=>Message[]) public FromUser;
-
-
+    mapping(address=>Message[]) public toUser;
+    mapping(address=>Message[]) public fromUser;
     
 
     // message struct defining sender of message, receive, time of message and message content
@@ -27,7 +25,6 @@ contract DecenMessaging{
         string textMessage;
     }
 
-    Message[] allMessages;
 
     event MessageSent(
         uint messageNumber,
@@ -57,14 +54,33 @@ contract DecenMessaging{
             block.timestamp,
             message
         );
-        allMessages.push(newMessage);
 
-        ToUser[to].push(newMessage);
-        FromUser[msg.sender].push(newMessage);
+        toUser[to].push(newMessage);
+        fromUser[msg.sender].push(newMessage);
 
         emit MessageSent(messageCount, msg.sender, to, block.timestamp);
     }
 
+    function viewReceivedMessages(address to) external view returns(Message[] memory){
+        uint iterateCount = toUser[to].length;
+        Message[] memory receivedMessages = new Message[](iterateCount);
+            for(uint i = 0; i < iterateCount; i++){
+                receivedMessages[i] = toUser[to][i];
+            }
+
+        return receivedMessages;
+    }
+    function viewSentMessages(address from) external view returns(Message[] memory){
+        uint iterateCount = fromUser[from].length;
+        Message[] memory receivedMessages = new Message[](iterateCount);
+            for(uint i = 0; i < iterateCount; i++){
+                receivedMessages[i] = fromUser[from][i];
+            }
+
+        return receivedMessages;
+    }
+
+    
 
 
 
