@@ -87,7 +87,7 @@ contract DecenMessaging{
 
 
 
-    // helper functions
+    // setter functions
 
     function setMessageLimit(uint _messageLimit) external onlyAdmin {
         messageLength = _messageLimit;

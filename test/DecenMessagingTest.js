@@ -84,6 +84,31 @@ describe("DecenMessages", ()=>{
     it("checks the sender data", async () =>{
       const user2Messages = await DecenMessaging.viewReceivedMessages(user2.address)
       expect(user2Messages[0]["sender"]).to.equal(user1.address)
+      expect(user2Messages[1]["sender"]).to.equal(user1.address)
+    })
+  })
+  describe("View sent messages", () =>{
+    let messageTxn, messageStruct
+    beforeEach(async()=>{
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user2.address, "Hello There")
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user2.address, "Hello There2")
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user3.address, "Hello There3")
+      messageStruct = await DecenMessaging.fromUser(user1.address, 0)
+    })
+    it("checks the sent messaages", async ()=>{
+      const user1Messages = await DecenMessaging.viewSentMessages(user1.address)
+      expect(user1Messages.length).to.equal(3)
+    })
+    it("checks the sent messages data", async () =>{
+      const user1Messages = await DecenMessaging.viewSentMessages(user1.address)
+      expect(user1Messages[0]["textMessage"]).to.equal("Hello There")
+      expect(user1Messages[1]["textMessage"]).to.equal("Hello There2")
+    })
+    it("checks the receivers data", async () =>{
+      const user1Messages = await DecenMessaging.viewSentMessages(user1.address)
+      expect(user1Messages[0]["receiver"]).to.equal(user2.address)
+      expect(user1Messages[1]["receiver"]).to.equal(user2.address)
+      expect(user1Messages[2]["receiver"]).to.equal(user3.address)
     })
   })
   
