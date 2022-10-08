@@ -80,6 +80,10 @@ contract DecenMessaging{
         return receivedMessages;
     }
 
+    function deleteReceivedMessage(uint messageNumber) external {
+        delete toUser[msg.sender][messageNumber];
+    }
+
     
 
 

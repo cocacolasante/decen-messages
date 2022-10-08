@@ -4,6 +4,7 @@ const {ethers} = require("hardhat")
 
 describe("DecenMessages", ()=>{
   let DecenMessaging, deployer, user1, user2, user3
+  const nullAddress = '0x0000000000000000000000000000000000000000'
   
   beforeEach(async()=>{
     const decenMessagesFactory = await hre.ethers.getContractFactory("DecenMessaging")
@@ -109,6 +110,24 @@ describe("DecenMessages", ()=>{
       expect(user1Messages[0]["receiver"]).to.equal(user2.address)
       expect(user1Messages[1]["receiver"]).to.equal(user2.address)
       expect(user1Messages[2]["receiver"]).to.equal(user3.address)
+    })
+  })
+  describe("Delete function", () =>{
+    let messageTxn, messageStruct, user2Messages
+    beforeEach(async()=>{
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user2.address, "Hello There")
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user2.address, "Hello There2")
+      messageTxn = await DecenMessaging.connect(user1).sendMessage(user3.address, "Hello There3")
+      messageStruct = await DecenMessaging.fromUser(user1.address, 0)
+      await DecenMessaging.connect(user2).deleteReceivedMessage(1)
+      user2Messages = await DecenMessaging.viewReceivedMessages(user2.address)
+    })
+    it("checks the message was deleted", async () => {
+      
+      expect(user2Messages[1]["textMessage"]).to.equal("")
+    })
+    it("checks the sender was deleted", async () =>{
+      expect(user2Messages[1]["sender"]).to.equal(nullAddress)
     })
   })
   
