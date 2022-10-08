@@ -6,13 +6,15 @@ import "hardhat/console.sol";
 
 contract DecenMessaging{
     address public admin;
-    address[] public users;
+
+    uint public messageLength = 100;
     
     uint public messageCount;
 
     // mapping of users to messages
-    mapping(address=>Message[]) public messagesToUser;
-    mapping(address=>Message[]) public messagesFromUser;
+    mapping(address=>Message[]) public ToUser;
+    mapping(address=>Message[]) public FromUser;
+
 
     
 
@@ -20,7 +22,7 @@ contract DecenMessaging{
     struct Message{
         uint messageNumber;
         address sender;
-        address to;
+        address receiver;
         uint timestamp;
         string textMessage;
     }
@@ -34,13 +36,18 @@ contract DecenMessaging{
         uint timestamp
     );
 
+    modifier onlyAdmin {
+        require(msg.sender == admin, "only admin can call this function");
+        _;
+    }
+
     constructor(){
         admin = payable(msg.sender);
     }
 
 
     function sendMessage(address to, string memory message) external {
-        require(bytes(message).length <= 100, "Message too long");
+        require(bytes(message).length <= messageLength, "Message too long");
         messageCount++;
 
         Message memory newMessage = Message(
@@ -52,13 +59,22 @@ contract DecenMessaging{
         );
         allMessages.push(newMessage);
 
-        messagesToUser[to].push(newMessage);
-        messagesFromUser[msg.sender].push(newMessage);
+        ToUser[to].push(newMessage);
+        FromUser[msg.sender].push(newMessage);
 
         emit MessageSent(messageCount, msg.sender, to, block.timestamp);
     }
 
-    function viewMessageByUser(address user) external view returns(Message[] memory){
-        
+
+
+
+
+
+
+    // helper functions
+
+    function setMessageLimit(uint _messageLimit) external onlyAdmin {
+        messageLength = _messageLimit;
     }
+
 }
