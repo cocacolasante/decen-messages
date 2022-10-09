@@ -12,8 +12,8 @@ contract DecenMessaging{
     uint public messageCount;
 
     // mapping of users to messages
-    mapping(address=>Message[]) public toUser;
-    mapping(address=>Message[]) public fromUser;
+    mapping(address=>Message[]) public toUser; // messages sent to user
+    mapping(address=>Message[]) public fromUser; // messages sent from user
     
 
     // message struct defining sender of message, receive, time of message and message content
@@ -61,6 +61,7 @@ contract DecenMessaging{
         emit MessageSent(messageCount, msg.sender, to, block.timestamp);
     }
 
+    // view messages you received
     function viewReceivedMessages(address to) external view returns(Message[] memory){
         uint iterateCount = toUser[to].length;
         Message[] memory receivedMessages = new Message[](iterateCount);
@@ -70,6 +71,8 @@ contract DecenMessaging{
 
         return receivedMessages;
     }
+
+    // view messages you sent
     function viewSentMessages(address from) external view returns(Message[] memory){
         uint iterateCount = fromUser[from].length;
         Message[] memory receivedMessages = new Message[](iterateCount);
@@ -80,8 +83,17 @@ contract DecenMessaging{
         return receivedMessages;
     }
 
+    // deletes messages you received
     function deleteReceivedMessage(uint messageNumber) external {
         delete toUser[msg.sender][messageNumber];
+    }
+
+    // deletes messages you sent and received
+    function deleteSentdMessage(uint messageNumber) external {
+        Message memory message = fromUser[msg.sender][messageNumber];
+        delete toUser[message.receiver][messageNumber];
+        delete fromUser[msg.sender][messageNumber];
+        
     }
 
     
