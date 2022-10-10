@@ -145,5 +145,16 @@ describe("DecenMessages", ()=>{
       expect(messageStruct.textMessage).to.equal("")      
     })
   })
+  describe("set new admin function", () =>{
+    beforeEach(async () =>{
+      await DecenMessaging.connect(deployer).setNewAdmin(user1.address)
+    })
+    it("checks the new admin was set", async () =>{
+      expect(await DecenMessaging.admin()).to.equal(user1.address)
+    })
+    it("checks for failure", async () =>{
+      await expect(DecenMessaging.connect(deployer).setNewAdmin(user2.address)).to.be.revertedWith("only admin can call this function")
+    })
+  })
   
 })
