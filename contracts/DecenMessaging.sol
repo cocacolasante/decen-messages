@@ -28,9 +28,15 @@ contract DecenMessaging{
 
     event MessageSent(
         uint messageNumber,
-        address sender,
+        address from,
         address to,
         uint timestamp
+    );
+
+    event MessageDeleted(
+        uint messageNumber,
+        address from,
+        address to
     );
 
     modifier onlyAdmin {
@@ -85,28 +91,30 @@ contract DecenMessaging{
 
     // deletes messages you received
     function deleteReceivedMessage(uint messageNumber) external {
+        Message memory message = toUser[msg.sender][messageNumber];
         delete toUser[msg.sender][messageNumber];
+        emit MessageDeleted(messageNumber, message.sender, message.receiver);
     }
 
     // deletes messages you sent and received
-    function deleteSentdMessage(uint messageNumber) external {
+    function deleteSentMessage(uint messageNumber) external {
         Message memory message = fromUser[msg.sender][messageNumber];
         delete toUser[message.receiver][messageNumber];
         delete fromUser[msg.sender][messageNumber];
+        emit MessageDeleted(messageNumber, message.sender, message.receiver);
         
     }
 
     
-
-
-
-
-
-
     // setter functions
 
     function setMessageLimit(uint _messageLimit) external onlyAdmin {
         messageLength = _messageLimit;
     }
+
+    function setNewAdmin(address newAdmin) external onlyAdmin{
+        admin = newAdmin;
+    }
+    
 
 }

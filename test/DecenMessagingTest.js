@@ -137,14 +137,12 @@ describe("DecenMessages", ()=>{
       messageTxn = await DecenMessaging.connect(user1).sendMessage(user2.address, "Hello There2")
       messageTxn = await DecenMessaging.connect(user1).sendMessage(user3.address, "Hello There3")
       
-      await DecenMessaging.connect(user1).deleteSentdMessage(0)
+      await DecenMessaging.connect(user1).deleteSentMessage(0)
       messageStruct = await DecenMessaging.fromUser(user1.address, 0)
 
     })
     it("checks the message was deleted from sent array", async () =>{
-      expect(messageStruct.textMessage).to.equal("")
-      console.log(await DecenMessaging.viewSentMessages(user1.address))
-      
+      expect(messageStruct.textMessage).to.equal("")      
     })
   })
   
