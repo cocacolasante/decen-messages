@@ -1,8 +1,9 @@
 import React from 'react'
 
 const MessageCard = (props) => {
-  const onReply = () =>{
-    
+  
+  const onReply = async () =>{
+
   }
   return (
     <div>

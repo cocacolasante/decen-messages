@@ -4,11 +4,11 @@ import CurrentMessage from '../components/CurrentMessage'
 
 const Home = () => {
   return (
-    <div>
+    <div className='recent-message-route'>
         <RecentMessages />
-
-        <CurrentMessage />
-
+        <div>
+          <CurrentMessage />
+        </div>
     </div>
   )
 }

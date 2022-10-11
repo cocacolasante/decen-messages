@@ -2,9 +2,9 @@ import React from 'react'
 
 const RecentMessages = () => {
   return (
-    <div>
-        <div className='recent-messages-container'>
-            <ul>
+    <div id="content" className='recent-messages-container'>
+        <div className='recent-messages-container2'>
+            <ul className='messages-list'>
                 <h4>Recent Messages</h4>
                 <li>Message 1</li>
                 <li>Message 2</li>
