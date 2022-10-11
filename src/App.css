@@ -6,13 +6,14 @@
 }
 .nav-ul{
   display: inline-flex;
-
   
 }
 .nav-li{
   text-decoration: none;
   color:black;
-  padding: 10px;
+  padding-right: 30px;
+  
+  
 }
 
 .top--div--{
@@ -25,7 +26,6 @@
 .recent-messages-container{
   display: grid;
   float: left;
-  height: 600px ;  
   min-height: auto;
   width: 300px;
   
@@ -47,12 +47,16 @@
 .message-preview-container{
   max-height: 50px;
   max-width: fit-content;
+  
 }
 
 .messages-list{
-  background-color:aquamarine;
-  
+  border: 1px solid #E6EEF7;
+  border-radius: 5px;  
 }
 .recent-messages-heading{
   padding-top: 15px;
+}
+.button-div{
+  padding-right: 20px;
 }

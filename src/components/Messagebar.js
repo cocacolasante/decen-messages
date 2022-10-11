@@ -67,10 +67,11 @@ const Messagebar = () => {
                 <ul className='nav-ul'>
                     <Link to="/" className='nav-li'>Messages</Link>
                     <Link to="/sent" className='nav-li'>Sent</Link>
-                    {!currentAccount ?  <button onClick={connectWallet}>Connect Wallet</button>: <p>{currentAccount.slice(0, 6)}...{currentAccount.slice(-6)}</p>}
                 </ul>
             </div>
-            
+            <div className='button-div'>
+        {!currentAccount ?  <button onClick={connectWallet}>Connect Wallet</button>: <p>{currentAccount.slice(0, 6)}...{currentAccount.slice(-6)}</p>}
+        </div>
         </div>
        
     </div>
