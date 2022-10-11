@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
 import { Link } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
 import Footer from '../Routes/Footer'
@@ -39,7 +38,7 @@ const Messagebar = () => {
 
         const accounts = await ethereum.request({method: "eth_accounts"})
 
-        if(accounts.length != 0){
+        if(accounts.length !== 0){
             setCurrentAccount(accounts[0])
 
             console.log(`Current Account ${accounts[0]}`)
