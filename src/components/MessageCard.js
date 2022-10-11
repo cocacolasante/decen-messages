@@ -6,13 +6,14 @@ const MessageCard = (props) => {
 
   }
   return (
-    <div>
-        <h2>{props.from}</h2>
+    <div id="from-header-container">
+          <h2 >{props.from}</h2>
         <div>
-            <p>{props.textMessage}</p>
+            <p>{props.messagetext} </p>
         </div>
         <div>
-            <button props={onReply} >reply</button>
+            <button>reply</button>
+            <button>Delete</button>
         </div>
     </div>
   )

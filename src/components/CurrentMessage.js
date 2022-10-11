@@ -4,16 +4,10 @@ import MessageCard from './MessageCard'
 const CurrentMessage = () => {
   return (
     <div id="content" className='message-container'>
-        <div id="from-header-container">
-          <h2 >From</h2>
-        <div>
-            <p>lorem ipsem text </p>
-        </div>
-        <div>
-            <button>reply</button>
-            <button>Delete</button>
-        </div>
-    </div>
+        <MessageCard 
+          from="test"
+          messagetext="a long paragraph of text, super long lorem ipsom keeping the texting going, hopefully will see a wrap around shortly"
+        />
     </div>
   )
 }

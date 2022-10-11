@@ -1,17 +1,21 @@
 import React from 'react'
+import MessagePreviewCard from './MessagePreviewCard'
 
 const RecentMessages = () => {
   return (
     <div id="content" className='recent-messages-container'>
         <div className='recent-messages-container2'>
             <ul className='messages-list'>
-                <h4>Recent Messages</h4>
-                <li>Message 1</li>
-                <li>Message 2</li>
-                <li>Message 3</li>
-                <li>Message 4</li>
-                <li>Message 5</li>
-                <li>Message 6</li>
+                <h4 className='recent-messages-heading'>Recent Messages</h4>
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+                <MessagePreviewCard from="test user 2 address" messagetext="long message text testing slice " />
+
+                
             </ul>
 
         </div>

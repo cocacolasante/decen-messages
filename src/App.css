@@ -26,7 +26,6 @@
   display: grid;
   float: left;
   height: 600px ;  
-  background-color: aquamarine;
   min-height: auto;
   width: 300px;
   
@@ -45,4 +44,15 @@
   text-align: center;
 }
 
+.message-preview-container{
+  max-height: 50px;
+  max-width: fit-content;
+}
 
+.messages-list{
+  background-color:aquamarine;
+  
+}
+.recent-messages-heading{
+  padding-top: 15px;
+}
