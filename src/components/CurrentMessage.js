@@ -102,7 +102,7 @@ const CurrentMessage = ({messageNumber}) => {
 
   return (
     <div id="from-header-container">
-    {!allMessages ? <p>loading</p> :
+    {!allMessages ? <p>Please Select A Message To Read</p> :
       (
         <>
         <h2 >{allMessages[1]}</h2>
@@ -114,6 +114,7 @@ const CurrentMessage = ({messageNumber}) => {
             <div>
               <input type="textarea" onChange={e=>setReplyMessage(e.target.value)} />
               <button onClick={sendReplyMessage} >Send</button>
+              
             </div>
           }
             
