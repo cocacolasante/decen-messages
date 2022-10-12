@@ -14,7 +14,6 @@ contract DecenMessaging{
     // mapping of users to messages
     mapping(address=>Message[]) public toUser; // messages sent to user
     mapping(address=>Message[]) public fromUser; // messages sent from user
-    
 
     // message struct defining sender of message, receive, time of message and message content
     struct Message{
@@ -104,6 +103,9 @@ contract DecenMessaging{
         emit MessageDeleted(messageNumber, message.sender, message.receiver);
         
     }
+
+    // return specific users messages
+
 
     
     // setter functions

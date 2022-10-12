@@ -6,9 +6,7 @@ const Home = () => {
   return (
     <div className='recent-message-route'>
         <RecentMessages />
-        <div>
-          <CurrentMessage />
-        </div>
+        
     </div>
   )
 }

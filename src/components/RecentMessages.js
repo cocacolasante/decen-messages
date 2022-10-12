@@ -1,15 +1,17 @@
 
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react'
-import MessageCard from './MessageCard'
 import {DECEN_MESSAGE_CONTRACT} from "../contractsConfig"
+import CurrentMessage from '../components/CurrentMessage'
+
 import decenmessagingjson from "../assets/decenmessaging.json"
-import MessagePreviewCard from './MessagePreviewCard'
+
 
 const RecentMessages = () => {
   const [currentAccount, setCurrentAccount] = useState()
 
   const [allMessages, setAllMessages] = useState()
+  const [readMessage, setReadMessage] = useState()
 
   const checkIfWalletIsConnected = async () =>{
     const {ethereum} = window;
@@ -76,6 +78,7 @@ const RecentMessages = () => {
   },[currentAccount])
 
   return (
+    <>
     <div id="content" className='recent-messages-container'>
         <div className='recent-messages-container2'>
             <ul className='messages-list'>
@@ -91,6 +94,7 @@ const RecentMessages = () => {
                             <div>
                                 <p>{i[4].slice(0, 10)} </p>
                             </div>
+                                <button value={allMessages.indexOf(i)} onClick={e=>setReadMessage(e.target.value)} >read</button>
                         </div>
                     </div>)
                   })
@@ -102,6 +106,10 @@ const RecentMessages = () => {
 
         </div>
     </div>
+    <div>
+          <CurrentMessage messageNumber={readMessage} />
+        </div>
+    </>
   )
 }
 

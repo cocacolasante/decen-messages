@@ -1,14 +1,12 @@
 import { ethers } from 'ethers';
 import React, { useEffect, useState } from 'react'
-import MessageCard from './MessageCard'
 import {DECEN_MESSAGE_CONTRACT} from "../contractsConfig"
 import decenmessagingjson from "../assets/decenmessaging.json"
 
-const CurrentMessage = () => {
+const CurrentMessage = ({messageNumber}) => {
   const [currentAccount, setCurrentAccount] = useState()
 
   const [allMessages, setAllMessages] = useState()
-  const [currentMessage, setCurrentMessage] = useState()
   const [replyMessage, setReplyMessage] = useState()
   const [isReplying, setIsReplying] = useState(false)
   const [replyAddress, setReplyAddress] = useState()
@@ -56,8 +54,8 @@ const CurrentMessage = () => {
           return output
         })
 
-        setAllMessages(filteredData[0]) // hard coding the selected message
-        setReplyAddress(filteredData[0][1])
+        setAllMessages(filteredData[messageNumber]) // hard coding the selected message
+        setReplyAddress(filteredData[messageNumber][1])
         
       }
 
@@ -98,7 +96,7 @@ const CurrentMessage = () => {
   
   useEffect(()=>{
     returnAllMessages()
-  },[currentAccount])
+  },[currentAccount, messageNumber])
 
  
 
