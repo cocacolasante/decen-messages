@@ -13,6 +13,8 @@ const RecentMessages = () => {
   const [allMessages, setAllMessages] = useState()
   const [readMessage, setReadMessage] = useState()
 
+  const nullAddress = "0x0000000000000000000000000000000000000000"
+
   const checkIfWalletIsConnected = async () =>{
     const {ethereum} = window;
     if(!ethereum){
@@ -48,17 +50,31 @@ const RecentMessages = () => {
 
         const filteredData = messages.map((i)=>{
           let output = []
-          output.push(i[0].toString()) // message number
-          output.push(i[1]) //sender
-          output.push(i[2]) // receiver
-          output.push(i[3].toString()) // timestamp
-          output.push(i[4].toString()) // message text
+            
+
+            output.push(i[0].toString()) // message number
+            output.push(i[1]) //sender
+            output.push(i[2]) // receiver
+            output.push(i[3].toString()) // timestamp
+            output.push(i[4].toString()) // message text
+         
           return output
         })
 
-        console.log(await messages)
+        
+        const reversedFilter = []
+        filteredData.sort(message =>{
+          if(message[0] > 0){
+            reversedFilter.push( message)
+            
+          }
+        })
 
-        setAllMessages(filteredData)
+        console.log(reversedFilter)
+
+        
+
+        setAllMessages(reversedFilter)
         
         
       }
