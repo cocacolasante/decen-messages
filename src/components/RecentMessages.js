@@ -63,6 +63,7 @@ const RecentMessages = () => {
 
         
         const reversedFilter = []
+
         filteredData.sort(message =>{
           if(message[0] > 0){
             reversedFilter.push( message)
@@ -70,11 +71,11 @@ const RecentMessages = () => {
           }
         })
 
-        console.log(reversedFilter)
+        console.log(filteredData)
 
         
 
-        setAllMessages(reversedFilter)
+        setAllMessages(filteredData)
         
         
       }
