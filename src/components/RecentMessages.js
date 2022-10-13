@@ -90,9 +90,9 @@ const RecentMessages = () => {
                     return(
                     <div key={i[0]} className='message-preview-container'>
                         <div className='message-preview'>
-                            <p >{i[1].slice(0,4)}...{i[1].slice(-6)}</p>
+                            <p >{i[1].slice(0,4)}...{i[1].slice(-5)}</p>
                             <div>
-                                <p>{i[4].slice(0, 10)} </p>
+                                <p>{i[4].slice(0, 15)} </p>
                             </div>
                                 <button value={allMessages.indexOf(i)} onClick={e=>setReadMessage(e.target.value)} >read</button>
                         </div>
