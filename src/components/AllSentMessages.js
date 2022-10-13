@@ -12,6 +12,7 @@ const AllSentMessages = () => {
 
   const [allMessages, setAllMessages] = useState()
   const [readMessage, setReadMessage] = useState()
+  const [messageToDelete, setMessageToDelete] = useState()
 
   const checkIfWalletIsConnected = async () =>{
     const {ethereum} = window;
@@ -56,7 +57,7 @@ const AllSentMessages = () => {
           return output
         })
 
-        console.log(await messages)
+        console.log(filteredData)
 
         setAllMessages(filteredData)
         
@@ -66,6 +67,36 @@ const AllSentMessages = () => {
     }catch(error){
       console.log(error)
     }
+  }
+
+  // delete message function, not working need to fix smart contract 
+  const deleteMessage = async (messageNum) =>{
+    try{
+      const {ethereum} = window;
+      if(ethereum){
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const DecenMessagingContract = new ethers.Contract(DECEN_MESSAGE_CONTRACT, decenmessagingjson.abi, signer)
+
+        let txn = await DecenMessagingContract.deleteSentMessage(messageNum)
+        let receipt = await txn.wait()
+
+        if(receipt.status === 1){
+          console.log("Messages deleted")
+        }else{
+          console.log('Transaction failed')
+        }
+      }
+
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const handleDeleteClick = (e) =>{
+    e.preventDefault()
+    console.log(e.target.value)
+    deleteMessage(e.target.value)
   }
 
   useEffect(()=>{
@@ -95,6 +126,7 @@ const AllSentMessages = () => {
                                 <p>{i[4].slice(0, 15)} </p>
                             </div>
                                 <button value={allMessages.indexOf(i)} onClick={e=>setReadMessage(e.target.value)} >read</button>
+                                {/* <button value={i[0]} onClick={handleDeleteClick} >Delete</button> */}
                         </div>
                     </div>)
                   })
