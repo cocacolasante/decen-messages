@@ -68,6 +68,35 @@ const RecentMessages = () => {
     }
   }
 
+  const deleteMessage = async (messageNum) =>{
+    try{
+      const {ethereum} = window;
+      if(ethereum){
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const DecenMessagingContract = new ethers.Contract(DECEN_MESSAGE_CONTRACT, decenmessagingjson.abi, signer)
+
+        let txn = await DecenMessagingContract.deleteReceivedMessage(messageNum)
+        let receipt = await txn.wait()
+
+        if(receipt.status === 1){
+          console.log("Messages deleted")
+        }else{
+          console.log('Transaction failed')
+        }
+      }
+
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+  const handleDeleteClick = (e) =>{
+    e.preventDefault()
+    console.log(e.target.value)
+    deleteMessage(e.target.value)
+  }
+
   useEffect(()=>{
     checkIfWalletIsConnected()
     
@@ -95,6 +124,7 @@ const RecentMessages = () => {
                                 <p>{i[4].slice(0, 15)} </p>
                             </div>
                                 <button value={allMessages.indexOf(i)} onClick={e=>setReadMessage(e.target.value)} >read</button>
+                                <button value={allMessages.indexOf(i)} onClick={handleDeleteClick} >delete</button>
                         </div>
                     </div>)
                   })
