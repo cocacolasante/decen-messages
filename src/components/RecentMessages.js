@@ -141,7 +141,7 @@ const RecentMessages = () => {
                                 <p>{i[4].slice(0, 15)} </p>
                             </div>
                                 <button value={allMessages.indexOf(i)} onClick={e=>setReadMessage(e.target.value)} >read</button>
-                                <button value={allMessages.indexOf(i)} onClick={handleDeleteClick} >delete</button>
+                                {/* <button value={allMessages.indexOf(i)} onClick={handleDeleteClick} >delete</button> */}
                         </div>
                     </div>)
                   })

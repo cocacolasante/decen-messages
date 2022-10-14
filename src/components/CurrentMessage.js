@@ -112,13 +112,14 @@ const CurrentMessage = ({messageNumber}) => {
         <div>
           {!isReplying ? <button onClick={setIsReplying(true)}>reply</button> :
             <div>
-              <input type="textarea" onChange={e=>setReplyMessage(e.target.value)} />
+            <textarea rows="4" cols="50" placeholder='message text' onChange={e=>setReplyMessage(e.target.value)} />
+            <br />
               <button onClick={sendReplyMessage} >Send</button>
               
             </div>
           }
             
-            <button>Delete</button>
+            {/* <button>Delete</button> */}
         </div>
         </>
       )
